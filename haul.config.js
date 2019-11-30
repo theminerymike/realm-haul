@@ -1,15 +1,5 @@
 import { withPolyfills, makeConfig } from "@haul-bundler/preset-0.60";
 
-const removeRuleByTest = (moduleConfig, test) => {
-  const index = moduleConfig.findIndex(rule => {
-    if (rule.test) {
-      return rule.test.toString() === test.toString();
-    }
-    return false;
-  });
-  moduleConfig.splice(index, 1);
-};
-
 export default makeConfig({
   bundles: {
     index: {
