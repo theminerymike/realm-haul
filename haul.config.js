@@ -15,35 +15,17 @@ export default makeConfig({
     index: {
       entry: withPolyfills('./index'),
       transform({ config }) {
-        config.resolve.alias = {
-          ...config.resolve.alias,
-          '@app': '/Users/mikeletellier/Documents/Git/hr4mobile/app',
-          '@components': '/Users/mikeletellier/Documents/Git/hr4mobile/app/components',
-          '@lang': '/Users/mikeletellier/Documents/Git/hr4mobile/app/lang',
-          '@schema': '/Users/mikeletellier/Documents/Git/hr4mobile/app/realm',
-          '@data': '/Users/mikeletellier/Documents/Git/hr4mobile/app/data',
-          '@lib': '/Users/mikeletellier/Documents/Git/hr4mobile/app/lib',
-          '@images': '/Users/mikeletellier/Documents/Git/hr4mobile/app/assets/images',
-          '@common-styles': '/Users/mikeletellier/Documents/Git/hr4mobile/app/components/common-styles'
-        }
 
         // Remove babel-loader, as it handles both .ts(x) and .js(x) files
-//        removeRuleByTest(config.module.rules, /\.[jt]sx?$/);
+        removeRuleByTest(config.module.rules, /\.[jt]sx?$/);
 
         config.module.rules = [
-          ...config.module.rules,
           {
             test: /\.tsx?$/,
-            use: [
-              {
-                loader: 'babel-loader'
-              },
-              {
-                loader: 'ts-loader'
-              }
-            ]
+            loader: 'ts-loader',
           },
-        
+          ...config.module.rules,
+
           // Re-add the babel-loader, now only for .js(x)
           {
             test: /\.jsx?$/,
@@ -57,7 +39,7 @@ export default makeConfig({
             },
           },
         ];
-      }
+      },
     },
   },
 });
